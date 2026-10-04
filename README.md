@@ -77,6 +77,22 @@ To stop it, close the terminal window (or press `Ctrl+C`).
 
 ---
 
+## 📲 Install as an app (optional)
+
+Learn Hub is a PWA, so you can install it to your **Start menu / taskbar / dock** and launch it
+in its own window — great on a Surface.
+
+1. Start the app (`start.cmd` or `npm start`) and open `http://localhost:7777`.
+2. In **Edge** or **Chrome**, click the **install icon** in the address bar, or **⋯ menu →
+   Apps → Install Learn Hub**.
+3. It opens full-screen with the book icon — pin it wherever you like.
+
+> Install it **on the machine running the server** — the install option only appears over
+> `http://localhost` (a browser-trusted secure context), not when browsing from another device
+> on your network. The server still has to be running for the app to load.
+
+---
+
 ## 📑 How to use it
 
 The app has four areas — **Home · Library · Learn · Settings** — plus a **?** help icon.
