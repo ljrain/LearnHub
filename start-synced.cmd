@@ -6,7 +6,9 @@ rem   IMPORTANT: run Learn Hub on only ONE machine at a time. Close it and let
 rem   your cloud drive finish syncing before opening it on the other machine.
 rem
 rem Edit the folder below if you don't use OneDrive, or want a different location.
-rem Use the SAME folder on both computers. %OneDrive% is set by Windows for you.
+rem Use the SAME folder on both computers. %OneDrive% is usually set by Windows;
+rem if it isn't, we fall back to %USERPROFILE%\OneDrive.
+if not defined OneDrive set "OneDrive=%USERPROFILE%\OneDrive"
 set "LEARNHUB_DATA_DIR=%OneDrive%\LearnHub"
 
 cd /d "%~dp0"
