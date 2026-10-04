@@ -230,6 +230,8 @@ See the **Guide** tab in the app for live status. In short:
 - **Ideas** — full-text search across article bodies; highlights & annotations; offline caching;
   corporate proxy support; reading goals & streaks.
 
+See **[IDEAS.md](IDEAS.md)** for the fuller backlog of future enhancements and fixes.
+
 ---
 
 ## 🤝 Contributing
