@@ -974,3 +974,9 @@ async function loadTopics() { TOPICS = await api.get('/api/topics'); }
     if (document.querySelector('#tabs button.active').dataset.view === 'dashboard') renderDashboard();
   }
 })();
+
+// Register the service worker so Learn Hub is installable (Start menu / dock) and
+// the shell loads offline. Non-fatal if it fails or isn't supported.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}

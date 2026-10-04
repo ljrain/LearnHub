@@ -11,6 +11,9 @@ notification** when new articles are published.
 Built with **zero npm dependencies** — just Node.js. Nothing to compile, no accounts, no cloud.
 Your data never leaves your computer.
 
+> ⚠️ **Alpha.** This is an early, personal project shared in the hope it's useful. Expect rough
+> edges, and extraction/UX may change. Feedback and issues are very welcome.
+
 > Not affiliated with or endorsed by Microsoft. "Microsoft", "Power Platform", and "Copilot
 > Studio" are trademarks of Microsoft. This app reads publicly available Microsoft Learn content.
 
@@ -217,6 +220,15 @@ See the **Guide** tab in the app for live status. In short:
 
 Issues and PRs welcome. It’s intentionally **dependency-free** — please keep new features to Node
 built-ins and vanilla JS where practical. There’s no build step: edit, run `npm start`, hard-refresh.
+
+---
+
+## 🤖 Built with Claude
+
+Learn Hub was built iteratively with **Claude** (via Claude Code) — from the first idea ("a personal
+learning platform for Microsoft Learn") through the reader, tracking, guided learning, and Kindle
+export. It's an experiment in building a genuinely useful, zero-dependency app this way. The code is
+plain Node.js and vanilla JS so it stays easy to read, fork, and understand.
 
 ---
 

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Learn Hub">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4063e6"/>
+      <stop offset="1" stop-color="#6b7cff"/>
+    </linearGradient>
+  </defs>
+  <!-- Full-bleed background: the OS applies the rounded/circular mask. -->
+  <rect width="32" height="32" fill="url(#bg)"/>
+  <!-- Book shrunk into the maskable safe zone (centered ~72%). -->
+  <g transform="translate(16 16) scale(0.72) translate(-16 -16)">
+    <path d="M16 9.8C13.6 8.4 10.7 8 8.4 8.35 8.05 8.4 7.8 8.7 7.8 9.05V21.6c0 .4.35.68.75.62 2.1-.28 4.9.12 7.45 1.58V9.8z" fill="#ffffff"/>
+    <path d="M16 9.8c2.4-1.4 5.3-1.8 7.6-1.45.35.05.6.35.6.7V21.6c0 .4-.35.68-.75.62-2.1-.28-4.9.12-7.45 1.58V9.8z" fill="#eef1ff"/>
+    <path d="M16 9.8V23.8" stroke="#2f49b8" stroke-width="1.1" stroke-linecap="round"/>
+    <g stroke="#9db0f2" stroke-width="1" stroke-linecap="round" fill="none">
+      <path d="M10 12.1c1.3-.25 2.6-.2 3.7.2"/>
+      <path d="M10 14.6c1.3-.25 2.6-.2 3.7.2"/>
+      <path d="M10 17.1c1.3-.25 2.6-.2 3.7.2"/>
+      <path d="M18.3 12.3c1.1-.4 2.4-.45 3.7-.2"/>
+      <path d="M18.3 14.8c1.1-.4 2.4-.45 3.7-.2"/>
+      <path d="M18.3 17.3c1.1-.4 2.4-.45 3.7-.2"/>
+    </g>
+  </g>
+</svg>

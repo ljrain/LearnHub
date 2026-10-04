@@ -1,0 +1,17 @@
+{
+  "name": "Learn Hub — Power Platform & Copilot Studio",
+  "short_name": "Learn Hub",
+  "description": "A personal reading platform for Microsoft Learn: read, track, summarize, and follow guided learning paths for Power Platform & Copilot Studio.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f1220",
+  "theme_color": "#4063e6",
+  "categories": ["education", "productivity", "books"],
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

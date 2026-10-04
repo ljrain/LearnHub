@@ -30,7 +30,7 @@ const readBody = (req) =>
     });
   });
 
-const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml' };
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.webmanifest': 'application/manifest+json' };
 
 // Reject any server-side fetch target that isn't a Microsoft Learn URL.
 const okUrl = (res, url) => {
