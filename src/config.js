@@ -40,10 +40,9 @@ export const RSS_URL = (query) =>
 export const CATALOG_URL = `https://learn.microsoft.com/api/catalog/?locale=${LOCALE}`;
 
 // Topics seeded on first run. `query` drives the RSS article feed; `products`
-// (comma-separated Catalog product ids) drives the Training tab. Copilot Studio
-// is not in the training catalog, so it has no products and falls back to RSS.
+// (comma-separated Catalog product ids) drives the Training / Learning Paths tab.
 export const DEFAULT_TOPICS = [
-  { id: 'copilot-studio', label: 'Copilot Studio', query: 'Copilot Studio agents', products: '' },
+  { id: 'copilot-studio', label: 'Copilot Studio', query: 'Copilot Studio agents', products: 'microsoft-copilot-studio' },
   { id: 'power-apps', label: 'Power Apps', query: 'Power Apps', products: 'power-apps' },
   { id: 'power-automate', label: 'Power Automate', query: 'Power Automate', products: 'power-automate' },
   {
