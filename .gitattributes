@@ -1,0 +1,6 @@
+# Normalize line endings for a cross-platform repo.
+* text=auto eol=lf
+# Windows batch launchers must stay CRLF.
+*.cmd text eol=crlf
+# Binary assets.
+*.png binary

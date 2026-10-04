@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Learn Hub — Power Platform &amp; Copilot Studio</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="favicon.svg" />
+<meta name="theme-color" content="#4063e6" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <div class="brand">📚 Learn Hub <span class="sub">Power Platform &amp; Copilot Studio</span></div>
+  <nav id="tabs">
+    <button data-view="dashboard" class="active">Home</button>
+    <button data-view="library">Library <span id="newBadge" class="badge" hidden>0</span></button>
+    <button data-view="learn">Learn</button>
+    <button data-view="settings">Settings</button>
+  </nav>
+  <div class="actions">
+    <button id="refreshAll" class="primary">↻ Refresh</button>
+    <button id="guideBtn" title="Guide &amp; help" aria-label="Guide and help">?</button>
+    <button id="themeToggle" title="Toggle theme">🌓</button>
+  </div>
+</header>
+
+<main id="app">
+  <section id="dashboard" class="view"></section>
+  <section id="library" class="view" hidden></section>
+  <section id="learn" class="view" hidden></section>
+  <section id="settings" class="view" hidden></section>
+  <section id="guide" class="view" hidden></section>
+</main>
+
+<!-- Reader (Kindle-style, touch-first) -->
+<div id="reader" class="reader" data-rtheme="light" hidden>
+  <header class="r-top" id="rTop">
+    <button class="r-icon" id="readerClose" aria-label="Back to list">‹ Library</button>
+    <button class="r-icon" id="tocBtn" aria-label="Section contents" title="Section contents">☰</button>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-top-actions">
+      <button class="r-icon" id="aaBtn" aria-label="Text options">Aa</button>
+      <button class="r-icon" id="sumBtn" aria-label="Summary">✦</button>
+      <button class="r-icon" id="moreBtn" aria-label="More actions">⋯</button>
+    </div>
+  </header>
+
+  <div class="r-scroll" id="rScroll">
+    <div id="rGuidePrompt" class="r-guideprompt" hidden></div>
+    <div id="rRelated" class="r-related" hidden></div>
+    <article id="readerContent" class="r-article"></article>
+  </div>
+
+  <footer class="r-bottom" id="rBottom">
+    <div class="r-nav" id="rNav" hidden>
+      <button class="r-navbtn" id="rPrev">‹ Prev</button>
+      <span class="r-pos" id="rPos"></span>
+      <button class="r-navbtn" id="rNext">Next ›</button>
+    </div>
+    <div class="r-progress"><i id="rBar"></i></div>
+    <div class="r-plabel" id="rPlabel"></div>
+  </footer>
+
+  <div class="r-scrim" id="rScrim" hidden></div>
+
+  <!-- Section contents (left drawer) -->
+  <aside class="r-toc" id="rToc" hidden></aside>
+
+  <!-- Text options -->
+  <section class="r-sheet" id="aaSheet" hidden>
+    <div class="r-grip"></div>
+    <div class="r-themes">
+      <button class="r-theme" data-rt="light"><span class="sw sw-light"></span>Light</button>
+      <button class="r-theme" data-rt="sepia"><span class="sw sw-sepia"></span>Sepia</button>
+      <button class="r-theme" data-rt="night"><span class="sw sw-night"></span>Night</button>
+    </div>
+    <div class="r-row"><span>Text size</span><div class="r-seg"><button data-size="-">A−</button><button data-size="+" class="big">A+</button></div></div>
+    <div class="r-row"><span>Line spacing</span><div class="r-seg"><button data-lh="-">Tight</button><button data-lh="+">Loose</button></div></div>
+    <div class="r-row"><span>Page width</span><div class="r-seg"><button data-width="narrow">Narrow</button><button data-width="medium">Medium</button><button data-width="wide">Wide</button></div></div>
+    <div class="r-row"><span>Typeface</span><div class="r-seg"><button data-font="serif">Serif</button><button data-font="sans">Sans</button></div></div>
+  </section>
+
+  <!-- Summary -->
+  <section class="r-sheet" id="sumSheet" hidden>
+    <div class="r-grip"></div>
+    <div class="r-row"><strong>Summary</strong><div class="r-seg"><button data-sum="local" class="active">Local</button><button data-sum="ai">AI</button></div></div>
+    <div id="summaryBox" class="r-sum muted">Choose Local or AI to generate a summary.</div>
+  </section>
+
+  <!-- More actions -->
+  <section class="r-sheet" id="moreSheet" hidden>
+    <div class="r-grip"></div>
+    <div class="r-actions-grid">
+      <button class="r-action" data-status="reading">📖<span>Reading</span></button>
+      <button class="r-action" data-status="read">✓<span>Mark read</span></button>
+      <button class="r-action" id="buildGuideBtn">🧭<span>Build guide</span></button>
+      <button class="r-action" id="addPlanBtn">➕<span>Add to plan</span></button>
+      <button class="r-action" id="kindleBtn">📩<span>To Kindle</span></button>
+      <a class="r-action" id="openLearn" target="_blank" rel="noopener">↗<span>On Learn</span></a>
+    </div>
+    <div class="r-row"><span>Rating</span><div id="ratingStars" class="stars big"></div></div>
+    <div class="r-note-wrap">
+      <textarea id="notes" placeholder="Notes…"></textarea>
+      <button id="saveNotes" class="r-save">Save notes</button>
+    </div>
+  </section>
+
+  <!-- Add to plan -->
+  <section class="r-sheet" id="planSheet" hidden>
+    <div class="r-grip"></div>
+    <div class="r-row"><strong>Add to a reading plan</strong></div>
+    <div id="planPick"></div>
+    <div class="r-row"><input id="newPlanName" placeholder="New plan name…" style="flex:1;min-height:44px" /><button id="newPlanBtn" class="r-navbtn">Create &amp; add</button></div>
+  </section>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

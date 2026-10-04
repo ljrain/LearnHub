@@ -1,0 +1,25 @@
+{
+  "name": "learn-hub",
+  "version": "0.1.0-alpha",
+  "description": "Personal reading platform for Microsoft Learn (Power Platform & Copilot Studio): read, track, summarize, navigate sections, and send to Kindle. Zero dependencies.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "scripts": {
+    "start": "node --no-warnings server.js",
+    "test": "node --no-warnings --test"
+  },
+  "keywords": [
+    "microsoft-learn",
+    "power-platform",
+    "copilot-studio",
+    "reader",
+    "kindle",
+    "epub",
+    "nodejs",
+    "zero-dependencies"
+  ],
+  "license": "MIT"
+}

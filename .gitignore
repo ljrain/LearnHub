@@ -1,0 +1,21 @@
+# Local data (database, caches, logs) — never commit these; they can contain
+# your API key / SMTP password and personal reading history.
+data/
+*.db
+*.db-wal
+*.db-shm
+catalog.json
+*.log
+
+# Generated Kindle exports
+LearnHub-Kindle/
+
+# Editor / OS cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Tooling artifacts
+.playwright-mcp/
+node_modules/
