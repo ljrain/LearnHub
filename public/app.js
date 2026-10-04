@@ -880,9 +880,31 @@ async function openReader({ id, url }, keepStack = false) {
   if (id && (!state.status || state.status === 'unread')) setStatus('reading', true);
 }
 
-// If the page is link-heavy (an overview / TOC), offer to build a guide from it.
-function maybeShowGuidePrompt() {
+// If a guide was already built from this page, offer to open it. Otherwise, if
+// the page is link-heavy (an overview / TOC), offer to build one.
+const normUrl = (u = '') => u.split('#')[0].split('?')[0];
+
+async function maybeShowGuidePrompt() {
   const gp = $('#rGuidePrompt');
+  gp.hidden = true;
+  const pageUrl = normUrl(currentItem?.url || '');
+
+  // Already have a guide built from this page? Show an "open it" link instead.
+  if (pageUrl) {
+    let existing = null;
+    try {
+      const plans = await api.get('/api/plans');
+      existing = plans.find((pl) => pl.total >= 2 && normUrl(pl.source) === pageUrl);
+    } catch { /* ignore — fall through to Build */ }
+    if (existing) {
+      gp.innerHTML = `<div class="r-guide-box"><span>🧭 You built a guide from this page — <b>${existing.read}/${existing.total}</b> read.</span><button class="r-guide-btn" id="rOpenGuide">Open guide ›</button></div>`;
+      gp.hidden = false;
+      $('#rOpenGuide').onclick = () => openGuidePlan(existing.id);
+      return;
+    }
+  }
+
+  // No guide yet — offer to build one when the page links to enough articles.
   const links = [...$('#readerContent').querySelectorAll('a[href]')].filter((a) => {
     const h = a.getAttribute('href') || '';
     return /learn\.microsoft\.com/i.test(h) && !/\.(png|jpe?g|gif|svg|webp|pdf|zip)(\?|#|$)/i.test(h);
@@ -892,9 +914,20 @@ function maybeShowGuidePrompt() {
     gp.innerHTML = `<div class="r-guide-box"><span>🧭 This page links to <b>${urls.size}</b> articles.</span><button class="r-guide-btn" id="rBuildGuide">Build a guide ›</button></div>`;
     gp.hidden = false;
     $('#rBuildGuide').onclick = buildGuideFromPage;
-  } else {
-    gp.hidden = true;
   }
+}
+
+// Open an existing guide and resume at its first unread article (Prev/Next paging).
+async function openGuidePlan(id) {
+  closeSheets();
+  const pl = await api.get('/api/plans/' + id);
+  const items = pl.items || [];
+  const urls = items.map((it) => it.url);
+  if (urls.length < 2) return toast('This guide is empty.', 3000);
+  sectionOrder = { tocUrl: 'guide', urls };
+  const resume = items.slice(1).find((it) => it.status !== 'read') || items[1] || items[0];
+  openTracked(resume.url);
+  toast('Opened guide — use Prev/Next.', 2500);
 }
 
 // An explicit "finished — mark as read" action at the end of every article, so

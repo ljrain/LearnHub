@@ -397,7 +397,7 @@ const server = http.createServer(async (req, res) => {
       const map = readingMap();
       const rows = db.prepare('SELECT * FROM plans ORDER BY created_at DESC').all().map((pl) => {
         const items = JSON.parse(pl.items || '[]');
-        return { id: pl.id, title: pl.title, total: items.length, read: items.filter((it) => statusOf(map, it.url) === 'read').length };
+        return { id: pl.id, title: pl.title, total: items.length, read: items.filter((it) => statusOf(map, it.url) === 'read').length, source: items[0]?.url || '' };
       });
       return json(res, 200, rows);
     }
