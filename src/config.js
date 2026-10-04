@@ -7,9 +7,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const ROOT = path.resolve(__dirname, '..');
 export const PUBLIC_DIR = path.join(ROOT, 'public');
-export const DATA_DIR = path.join(ROOT, 'data');
+// Where all local state lives (SQLite DB + catalog cache). Point LEARNHUB_DATA_DIR
+// at a cloud-synced folder (OneDrive/Dropbox) to share reading status, stats, and
+// plans across machines — run one machine at a time (see README).
+export const DATA_DIR = process.env.LEARNHUB_DATA_DIR || path.join(ROOT, 'data');
 export const DB_PATH = path.join(DATA_DIR, 'learnhub.db');
 export const CATALOG_CACHE = path.join(DATA_DIR, 'catalog.json');
+// When the data dir is a synced folder, keep everything in the single .db file
+// (no WAL -wal/-shm side-files) so a partially-synced copy can't corrupt.
+export const SYNC_SAFE_DB = !!process.env.LEARNHUB_DATA_DIR;
 
 export const PORT = Number(process.env.LEARNHUB_PORT || 7777);
 // Bind to localhost by default so the app isn't exposed on your network. Set

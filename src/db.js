@@ -3,12 +3,15 @@
 import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
-import { DB_PATH, DATA_DIR, DEFAULT_TOPICS } from './config.js';
+import { DB_PATH, DATA_DIR, DEFAULT_TOPICS, SYNC_SAFE_DB } from './config.js';
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
 
 export const db = new DatabaseSync(DB_PATH);
-db.exec('PRAGMA journal_mode = WAL;');
+// WAL is fastest for local use, but its -wal/-shm side-files make cloud-folder
+// sync unsafe. When syncing (LEARNHUB_DATA_DIR set) use a single-file rollback
+// journal so the one .db file is always complete between writes.
+db.exec(SYNC_SAFE_DB ? 'PRAGMA journal_mode = DELETE;' : 'PRAGMA journal_mode = WAL;');
 
 db.exec(`
 CREATE TABLE IF NOT EXISTS topics (

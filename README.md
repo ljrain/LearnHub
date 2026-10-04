@@ -162,12 +162,43 @@ On **macOS/Linux**, point `cron` at `node notify-refresh.js` instead.
 
 ---
 
+## 💻 Use on two computers (sync)
+
+All your data — reading status, stats, ratings, notes, and plans — lives in one SQLite file
+(`learnhub.db`). You can share it across machines by keeping that file in a **cloud-synced folder**
+(OneDrive, Dropbox, etc.) and pointing Learn Hub at it with `LEARNHUB_DATA_DIR`.
+
+**Windows (easiest):**
+
+1. On your first PC, close Learn Hub, then copy your existing `data\learnhub.db` into a synced
+   folder, e.g. `%OneDrive%\LearnHub\`.
+2. Launch with **`start-synced.cmd`** instead of `start.cmd` (it sets `LEARNHUB_DATA_DIR` to
+   `%OneDrive%\LearnHub` — edit the file if you use a different folder).
+3. On the second PC, pull the repo, make sure the same folder is synced, and launch with
+   `start-synced.cmd` there too.
+
+**Any OS:** set the env var to a synced folder and start normally —
+`LEARNHUB_DATA_DIR="/path/to/OneDrive/LearnHub" npm start`.
+
+> ⚠️ **Run Learn Hub on only one machine at a time.** Close it and let your cloud drive finish
+> syncing (the folder shows a ✓) **before** opening it on the other computer. Cloud services
+> replace the whole file, so two machines writing at once will conflict. When a synced data dir is
+> set, Learn Hub automatically uses a single-file database (no `-wal` side-files) so a
+> partially-synced copy can't corrupt.
+>
+> 🔑 Your settings (including any **Anthropic API key / SMTP password**) are stored in that
+> database — syncing it uploads those secrets to your cloud drive. That's your own account, but
+> be aware of it.
+
+---
+
 ## ⚙️ Configuration (environment variables)
 
 | Variable | Default | Purpose |
 |---|---|---|
 | `LEARNHUB_PORT` | `7777` | Server port |
 | `LEARNHUB_HOST` | `127.0.0.1` | Bind address. Localhost-only by default; set `0.0.0.0` to read from another device on your network (see Security). |
+| `LEARNHUB_DATA_DIR` | `./data` | Where the database & cache live. Point it at a cloud-synced folder to share across computers (see below). |
 | `LEARNHUB_EXPORT_DIR` | `~/LearnHub-Kindle` | Where EPUB files are saved |
 | `ANTHROPIC_API_KEY` | – | Enables AI summaries |
 
